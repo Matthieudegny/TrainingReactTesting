@@ -1,3 +1,4 @@
+import ScoreAndResults from './components/ScoreAndResults';
 import styles from './App.module.css';
 
 function App() {
@@ -7,8 +8,8 @@ function App() {
         <h1>ROCK, PAPER, SCISSORS</h1>
         <p>React Typescript Game!</p>
       </div>
-      {/* <ScoreAndResults />
-      <ChooseAndPlay /> */}
+      <ScoreAndResults />
+      {/* <ChooseAndPlay /> */}
     </div>
   );
 }

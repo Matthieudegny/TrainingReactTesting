@@ -1,0 +1,43 @@
+.scoreCtn {
+  display: flex;
+  justify-content: space-between;
+}
+
+.scoreCtn h3 {
+  margin-top: 0;
+  padding: 20px 0;
+  background-color: #181848;
+  color: #fff;
+}
+
+.score {
+  width: 200px;
+  background-color: #fff;
+  margin-bottom: 20px;
+}
+
+.results {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 100px;
+  height: 200px;
+}
+
+.playerHand,
+.computerHand {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-color: white;
+  width: 200px;
+  height: 200px;
+  border-radius: 5px;
+  position: relative;
+}
+
+.midCol {
+  color: #fff;
+  max-width: 400px;
+}
