@@ -1,4 +1,3 @@
-import React from 'react';
 import styles from './ChooseAndPlay.module.css';
 import HandSelection from '../components/HandSelection';
 import { useOptions } from '../context/optionsContext';
