@@ -1,5 +1,6 @@
 export enum OptionActionKind {
   UPDATE_PLAYER_CHOICE = 'UPDATE_PLAYER_CHOICE',
+  UPDATE_COMPUTER_CHOICE = 'UPDATE_COMPUTER_CHOICE',
 }
 
 interface UpdatePlayerChoice {
@@ -7,4 +8,9 @@ interface UpdatePlayerChoice {
   payload: number;
 }
 
-export type ActionTypes = UpdatePlayerChoice;
+interface UpdateComputerChoice {
+  type: OptionActionKind.UPDATE_COMPUTER_CHOICE;
+  payload: number;
+}
+
+export type ActionTypes = UpdatePlayerChoice | UpdateComputerChoice;
