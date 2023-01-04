@@ -15,6 +15,11 @@ export default function scoreReducer(state: IInitialState, action: ActionTypes) 
         ...state,
         computerHand: payload,
       };
+    case 'RUN_TIMER':
+      return {
+        ...state,
+        runTimer: payload,
+      };
     default:
       return {
         ...state,
