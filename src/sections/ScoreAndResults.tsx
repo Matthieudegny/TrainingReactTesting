@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useOptions } from '../context/optionsContext';
 import { OptionActionKind } from '../reducers/scoreReducerTypes';
+import { checkWinner } from '../utils/checkWinner';
 import styles from './ScoreAndResults.module.css';
 
 const ScoreAndResults = () => {
@@ -9,6 +10,16 @@ const ScoreAndResults = () => {
   const optionsContext = useOptions();
   const { runTimer } = optionsContext.state;
   const { dispatch } = optionsContext;
+
+  const playerHandIndex = optionsContext.state.playerHand;
+  const playerHandName = optionsContext.options[playerHandIndex].name;
+  const playerHandIcon = optionsContext.options[playerHandIndex].icon;
+  const playerScore = optionsContext.state.score.player;
+
+  const computerHandIndex = optionsContext.state.computerHand;
+  const computerHandName = optionsContext.options[computerHandIndex].name;
+  const computerHandIcon = optionsContext.options[computerHandIndex].icon;
+  const computerScore = optionsContext.state.score.computer;
 
   useEffect(() => {
     if (runTimer) {
@@ -28,6 +39,7 @@ const ScoreAndResults = () => {
     if (timer === 0) {
       setTimer(3);
       dispatch({ type: OptionActionKind.RUN_TIMER, payload: false });
+      checkWinner(dispatch, playerHandName, computerHandName);
     }
   }, [timer]);
 
@@ -36,11 +48,11 @@ const ScoreAndResults = () => {
       <div className={styles.scoreCtn}>
         <div className={styles.score}>
           <h3>Score</h3>
-          <p>Player:</p>
+          <p>Player: {playerScore}</p>
         </div>
         <div className={styles.score}>
           <h3>Score</h3>
-          <p>Computer:</p>
+          <p>Computer: {computerScore}</p>
         </div>
       </div>
       <div className={styles.results}>
