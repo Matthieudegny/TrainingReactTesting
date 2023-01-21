@@ -46,3 +46,13 @@
   color: #fff;
   font-size: 200px;
 }
+
+.resultWinner {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 50px;
+}
+
+.resultMessage {
+  font-size: 24px;
+}

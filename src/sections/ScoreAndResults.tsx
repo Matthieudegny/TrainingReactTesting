@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { p } from 'vitest/dist/index-9f5bc072';
 import { useOptions } from '../context/optionsContext';
 import { OptionActionKind } from '../reducers/scoreReducerTypes';
 import { checkWinner } from '../utils/checkWinner';
@@ -20,6 +21,8 @@ const ScoreAndResults = () => {
   const computerHandName = optionsContext.options[computerHandIndex].name;
   const computerHandIcon = optionsContext.options[computerHandIndex].icon;
   const computerScore = optionsContext.state.score.computer;
+
+  const { winner, message } = optionsContext.state.results;
 
   useEffect(() => {
     if (runTimer) {
@@ -56,15 +59,31 @@ const ScoreAndResults = () => {
         </div>
       </div>
       <div className={styles.results}>
-        <div className={styles.playerHand}></div>
+        <div className={styles.playerHand}>
+          {!runTimer && winner && (
+            <>
+              <div>{playerHandIcon}</div>
+              <p>{playerHandName}</p>
+            </>
+          )}
+        </div>
         <div className={styles.midCol}>
           {runTimer && (
             <p data-testid="timer" className={styles.timer}>
               {timer}
             </p>
           )}
+          {!runTimer && winner && <p className={styles.resultWinner}>{winner} wins!</p>}
+          {!runTimer && winner && <p className={styles.resultMessage}>{message}</p>}
         </div>
-        <div className={styles.computerHand}></div>
+        <div className={styles.computerHand}>
+          {!runTimer && winner && (
+            <>
+              <div>{computerHandIcon}</div>
+              <p>{computerHandName}</p>
+            </>
+          )}
+        </div>
       </div>
     </>
   );
