@@ -65,6 +65,29 @@
   animation: computerShakeAnimation 0.8s ease-in-out infinite;
 }
 
+.winnerAnimation {
+  animation: winner 2s ease-in-out;
+}
+
+@keyframes winner {
+  30% {
+    transform: scale(1.2);
+  }
+  40%,
+  60% {
+    transform: rotate(-20deg) scale(1.1);
+  }
+  50% {
+    transform: rotate(20deg) scale(1.1);
+  }
+  70% {
+    transform: rotate(0deg) scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 @keyframes playerShakeAnimation {
   0%,
   100% {

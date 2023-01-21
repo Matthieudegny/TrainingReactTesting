@@ -59,7 +59,9 @@ const ScoreAndResults = () => {
         </div>
       </div>
       <div className={styles.results}>
-        <div className={styles.playerHand}>
+        <div
+          className={`${styles.playerHand} ${winner === 'Player' ? styles.winnerAnimation : ''}`}
+        >
           {runTimer && <div className={styles.playerShake}>{options[0].icon}</div>}
           {!runTimer && winner && (
             <>
@@ -77,7 +79,11 @@ const ScoreAndResults = () => {
           {!runTimer && winner && <p className={styles.resultWinner}>{winner} wins!</p>}
           {!runTimer && winner && <p className={styles.resultMessage}>{message}</p>}
         </div>
-        <div className={styles.computerHand}>
+        <div
+          className={`${styles.computerHand} ${
+            winner === 'Computer' ? styles.winnerAnimation : ''
+          }`}
+        >
           {runTimer && <div className={styles.computerShake}>{options[0].icon}</div>}
           {!runTimer && winner && (
             <>
