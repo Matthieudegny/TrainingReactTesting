@@ -9,6 +9,14 @@ vi.mock('../utils/randomNumber', () => ({
   generateComputerHand: () => 0,
 }));
 
+vi.mock('./ScoreAndResults.module.css', () => {
+  return {
+    default: {
+      winnerAnimation: 'winnerAnimation',
+    },
+  };
+});
+
 describe('ScoreAndResults', () => {
   it('should display 2 seconds on the screen after we wait 1 second second', () => {
     vi.useFakeTimers();
@@ -160,5 +168,115 @@ describe('ScoreAndResults', () => {
     expect(screen.getAllByTestId(/rock/i)[0]).toBeVisible();
 
     expect(screen.getAllByTestId(/rock/i)).toHaveLength(3);
+  });
+
+  it('should display the player and computer hand shake when playing', () => {
+    vi.useFakeTimers();
+
+    render(
+      <OptionsProvider>
+        <ScoreAndResults />
+        <ChooseAndPlay />
+      </OptionsProvider>
+    );
+
+    const playerHandShake = screen.queryByTestId('playerShake');
+    const computerHandShake = screen.queryByTestId('computerShake');
+
+    expect(playerHandShake).not.toBeInTheDocument();
+
+    expect(computerHandShake).not.toBeInTheDocument();
+
+    const hand = screen.getByText(/rock/i);
+
+    fireEvent.click(hand);
+    fireEvent.click(screen.getByText('Play'));
+
+    act(() => {
+      vi.advanceTimersByTime(2000);
+    });
+
+    screen.debug();
+
+    expect(screen.queryByTestId('playerShake')).toBeInTheDocument();
+    expect(screen.queryByTestId('computerShake')).toBeInTheDocument();
+  });
+
+  it('should display the Player winner animation', () => {
+    vi.useFakeTimers();
+
+    render(
+      <OptionsProvider>
+        <ScoreAndResults />
+        <ChooseAndPlay />
+      </OptionsProvider>
+    );
+
+    const hand = screen.getByText(/paper/i);
+
+    fireEvent.click(hand);
+    fireEvent.click(screen.getByText('Play'));
+
+    act(() => {
+      vi.advanceTimersByTime(3000);
+    });
+
+    expect(screen.getByTestId('playerResult')).toHaveClass('winnerAnimation');
+
+    screen.debug();
+  });
+
+  it('should display the Computer winner animation', () => {
+    vi.useFakeTimers();
+
+    render(
+      <OptionsProvider>
+        <ScoreAndResults />
+        <ChooseAndPlay />
+      </OptionsProvider>
+    );
+
+    const hand = screen.getByText(/scissors/i);
+
+    fireEvent.click(hand);
+    fireEvent.click(screen.getByText('Play'));
+
+    act(() => {
+      vi.advanceTimersByTime(3000);
+    });
+
+    expect(screen.getByTestId('computerResult')).toHaveClass('winnerAnimation');
+  });
+
+  it('should reset the previous winner message results', () => {
+    vi.useFakeTimers();
+
+    render(
+      <OptionsProvider>
+        <ScoreAndResults />
+        <ChooseAndPlay />
+      </OptionsProvider>
+    );
+
+    const hand = screen.getByText(/scissors/i);
+
+    fireEvent.click(hand);
+    fireEvent.click(screen.getByText('Play'));
+
+    act(() => {
+      vi.advanceTimersByTime(3000);
+    });
+
+    expect(screen.getByTestId('computerResult')).toHaveClass('winnerAnimation');
+    expect(screen.getAllByText(/Computer wins!/i)[0]).toBeInTheDocument();
+    expect(screen.getAllByTestId(/rock/i)[0]).toBeVisible();
+    expect(screen.getAllByTestId(/rock/i)).toHaveLength(2);
+
+    fireEvent.click(screen.getByText(/paper/i));
+
+    screen.debug();
+    expect(screen.getByTestId('computerResult')).not.toHaveClass('winnerAnimation');
+    expect(screen.queryByText(/Computer wins!/i)).toBeNull();
+    expect(screen.getAllByTestId(/rock/i)).toHaveLength(1);
   });
 });

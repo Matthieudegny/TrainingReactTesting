@@ -9,6 +9,10 @@ export default function scoreReducer(state: IInitialState, action: ActionTypes) 
       return {
         ...state,
         playerHand: payload,
+        results: {
+          winner: '',
+          message: '',
+        },
       };
     case OptionActionKind.UPDATE_COMPUTER_CHOICE:
       return {
