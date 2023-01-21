@@ -56,3 +56,31 @@
 .resultMessage {
   font-size: 24px;
 }
+
+.playerShake {
+  animation: playerShakeAnimation 0.8s ease-in-out infinite;
+}
+
+.computerShake {
+  animation: computerShakeAnimation 0.8s ease-in-out infinite;
+}
+
+@keyframes playerShakeAnimation {
+  0%,
+  100% {
+    transform: rotate(100deg);
+  }
+  50% {
+    transform: rotate(80deg);
+  }
+}
+
+@keyframes computerShakeAnimation {
+  0%,
+  100% {
+    transform: scaleY(-1) rotate(-80deg);
+  }
+  50% {
+    transform: scaleY(-1) rotate(-100deg);
+  }
+}

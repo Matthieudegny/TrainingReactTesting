@@ -36,6 +36,8 @@ const TestingComponent = (props: Iprops) => {
 
   return (
     <>
+      <p>winner: {state.results.winner}</p>
+      <p>winner: {state.results.message}</p>
       <p>playerhand: {state.playerHand}</p>
       <p>computerhand: {state.computerHand}</p>
     </>
@@ -57,5 +59,43 @@ describe('scoreReducer', () => {
     );
 
     expect(screen.getByText(/computerhand: 1/)).toBeInTheDocument();
+  });
+
+  it('should update the scoreReducer with the Player wins', () => {
+    render(
+      <TestingComponent
+        myaction={{ type: OptionActionKind.PLAYER_WINS, payload: 'Rock beats scissors' }}
+      />
+    );
+
+    expect(screen.getByText(/winner: Player/i));
+    expect(screen.getByText(/Rock beats scissors/i));
+  });
+
+  it('should update the scoreReducer with the Computer wins', () => {
+    render(
+      <TestingComponent
+        myaction={{ type: OptionActionKind.COMPUTER_WINS, payload: 'Scissors beats paper' }}
+      />
+    );
+
+    expect(screen.getByText(/winner: Computer/i));
+    expect(screen.getByText(/Scissors beats paper/i));
+  });
+
+  it('should update the scoreReducer with the Draw case', () => {
+    render(<TestingComponent myaction={{ type: OptionActionKind.DRAW, payload: 'Its a draw' }} />);
+
+    expect(screen.getByText(/winner: No one/i));
+    expect(screen.getByText(/Its a draw/i));
+  });
+
+  it('should update the scoreReducer with the Default case', () => {
+    render(
+      <TestingComponent myaction={{ type: OptionActionKind.RANDOM, payload: 'Its a draw' }} />
+    );
+
+    expect(screen.getByText(/winner: Error/i));
+    expect(screen.getByText(/We have an error/i));
   });
 });
